@@ -5,6 +5,7 @@ import datetime
 import boto3
 import pandas
 import numpy as np
+import json
 
 def condf(DimCol, UsageType):
     return pandas.DataFrame(
@@ -109,5 +110,8 @@ if __name__ == "__main__":
     bill_pivot.to_csv('/Users/lijing/Desktop/result.csv')
     df1 = pandas.read_csv('/Users/lijing/Desktop/result.csv')
     usage = df1.rename(columns={start: 'Usage'})
-    usage_list= usage.to_json(orient='records')
+    usage_list = usage.to_json(orient='records')
     print(usage_list)
+    jsonFile = open('/Users/lijing/Desktop/CE20230228.json', 'w')
+    jsonFile.write(usage_list)
+    jsonFile.close()
