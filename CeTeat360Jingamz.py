@@ -108,4 +108,6 @@ if __name__ == "__main__":
     print(bill_pivot)
     bill_pivot.to_csv('/Users/lijing/Desktop/result.csv')
     df1 = pandas.read_csv('/Users/lijing/Desktop/result.csv')
-    print(df1.to_json(orient='records'))
+    usage = df1.rename(columns={start: 'Usage'})
+    usage_list= usage.to_json(orient='records')
+    print(usage_list)
