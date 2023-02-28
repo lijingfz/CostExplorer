@@ -66,7 +66,7 @@ def GenCeReport(QueryOutput, merged_cost, dimkey1):
 
 if __name__ == "__main__":
     # 指定AWS configure profile
-    session = boto3.Session(profile_name='jingamz')
+    session = boto3.Session(profile_name='test')
     aws_client = session.client('ce')
     start='2023-01-01'
     end='2023-02-01'
@@ -76,7 +76,8 @@ if __name__ == "__main__":
     cost_service.to_csv('/Users/lijing/Desktop/cost_service.csv', index=True)
     merged_cost_region = condf('Region', 'UsageType')
     response_region = getcedetail(aws_client, start, end, 'REGION', 'USAGE_TYPE')
-    cost_region = GenCeReport(response_region, merged_cost_region, 'Region')
+    cost_region_filter = GenCeReport(response_region, merged_cost_region, 'Region')
+    cost_region = cost_region_filter.query("Region != 'NoRegion'")
     cost_region.to_csv('/Users/lijing/Desktop/cost_region.csv', index=True)
 
     MyRegion = pandas.merge(cost_service, cost_region.drop([start], axis=1), on=['UsageType'],
