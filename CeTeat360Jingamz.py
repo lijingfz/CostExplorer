@@ -67,12 +67,10 @@ def GenCeReport(QueryOutput, merged_cost, dimkey1):
     return merged_cost
 
 
-MyStr2 = '''{{ "Keys": [ "{metric}","{region}"],"Metrics": {{"UnblendedCost": {{"Amount": "{Amount}","Unit": "USD"}} }} }}'''
-
 if __name__ == "__main__":
 
     # 指定AWS configure profile
-    session = boto3.Session(profile_name='test')
+    session = boto3.Session(profile_name='jingamz')
     aws_client = session.client('ce')
     # 指定查询范围，注意，[start,end)
     start = '2023-01-01'
